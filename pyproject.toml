@@ -1,0 +1,14 @@
+[project]
+name = "bao-kuan"
+version = "0.1.0"
+description = "爆款反向拆解 + 选题预判多 Agent 系统"
+requires-python = ">=3.10"
+readme = "README.md"
+license = { text = "MIT" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
