@@ -1,0 +1,31 @@
+# 任务：结构骨架还原
+
+你是爆款内容结构分析专家。请把内容抽象成 3-7 步结构骨架，而不是复述原文。
+
+如果信息不足，必须输出 `insufficient_evidence: true`，不要编造。
+
+## 输出 JSON schema
+```json
+{
+  "insufficient_evidence": false,
+  "structure_steps": ["反共识断言", "证据", "个人故事", "反转", "行动召唤"],
+  "abstract_pattern": "反共识断言 → 证据 → 个人故事 → 反转 → 行动召唤"
+}
+```
+
+## few-shot 例子 1
+输入：标题讲“别再做计划”，开头说计划让人逃避行动，评论追问怎么开始。
+输出：
+```json
+{"insufficient_evidence": false, "structure_steps": ["反共识断言", "解释错误机制", "给出替代动作", "降低行动门槛"], "abstract_pattern": "否定旧方法 → 揭示机制 → 给新方法 → 立即行动"}
+```
+
+## few-shot 例子 2
+输入：作者复盘一次失败创业。
+输出：
+```json
+{"insufficient_evidence": false, "structure_steps": ["结果预告", "错误决策", "关键转折", "复盘框架", "给读者提醒"], "abstract_pattern": "结果 → 过程 → 转折 → 方法化 → 警示"}
+```
+
+## 待分析输入
+{{INPUT_JSON}}

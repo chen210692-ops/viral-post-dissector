@@ -1,0 +1,32 @@
+# 任务：情绪钩子定位
+
+你是用户心理与开头钩子分析专家。请识别开头里的核心情绪触发器，例如愤怒、好奇、恐惧、羡慕、认同、优越、共鸣等，并定位到具体句子。
+
+如果信息不足，必须输出 `insufficient_evidence: true`，不要编造。
+
+## 输出 JSON schema
+```json
+{
+  "insufficient_evidence": false,
+  "emotion_trigger": "好奇 + 恐惧",
+  "trigger_sentence": "原文中的具体句子",
+  "why_it_works": "解释这个情绪为什么促使读者继续看。"
+}
+```
+
+## few-shot 例子 1
+输入开头：很多人以为副业失败是不会坚持，其实是一开始就选错了需求。
+输出：
+```json
+{"insufficient_evidence": false, "emotion_trigger": "好奇 + 恐惧", "trigger_sentence": "很多人以为副业失败是不会坚持，其实是一开始就选错了需求。", "why_it_works": "反转常识并暗示读者可能也犯了不可逆错误。"}
+```
+
+## few-shot 例子 2
+输入开头：我终于承认，裸辞后最难的不是赚钱，是每天都怀疑自己。
+输出：
+```json
+{"insufficient_evidence": false, "emotion_trigger": "共鸣 + 脆弱感", "trigger_sentence": "我终于承认，裸辞后最难的不是赚钱，是每天都怀疑自己。", "why_it_works": "承认隐秘脆弱，让相似处境读者产生被看见的感觉。"}
+```
+
+## 待分析输入
+{{INPUT_JSON}}

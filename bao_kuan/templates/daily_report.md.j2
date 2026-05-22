@@ -1,0 +1,69 @@
+# 爆款反向拆解日报 - {{ date }}
+
+赛道：**{{ niche }}**  
+分析窗口：过去 {{ window_days }} 天
+
+## 1. 今日采集概览
+
+共采集/保留 {{ posts|length }} 条标准化爆款样本。
+
+| 平台 | 标题 | 互动估算 | 链接 |
+|---|---:|---:|---|
+{% for post in posts %}
+| {{ post.platform }} | {{ post.title }} | {{ (post.interaction_data.get('likes') or 0) + (post.interaction_data.get('comments') or 0) + (post.interaction_data.get('shares') or 0) + (post.interaction_data.get('collects') or 0) }} | {{ post.url }} |
+{% endfor %}
+
+## 2. 未被满足的内容缺口
+
+{% if gaps %}
+{% for gap in gaps %}
+### 缺口 {{ loop.index }}：{{ gap.theme }}
+
+- 出现频次：{{ gap.frequency }} 条爆款触及但未深入
+- 缺口强度评分：{{ gap.strength_score }}/100
+- 代表样本：
+{% for sample in gap.samples %}
+  - {{ sample }}
+{% endfor %}
+{% endfor %}
+{% else %}
+暂未形成稳定缺口；建议扩大采集窗口或补充平台数据。
+{% endif %}
+
+## 3. 选题建议：我能写、但没人在写
+
+{% if advices %}
+{% for advice in advices %}
+### 选题 {{ loop.index }}
+
+**标题备选**
+{% for title in advice.title_options %}
+- {{ title }}
+{% endfor %}
+
+**切入角度**  
+{{ advice.angle }}
+
+**预测互动区间**  
+{{ advice.predicted_interaction_range.get('low', '?') }} - {{ advice.predicted_interaction_range.get('high', '?') }}  
+依据：{{ advice.predicted_interaction_range.get('basis', '基于缺口强度和历史样本互动') }}
+
+**写作要点**
+{% for point in advice.writing_points %}
+- {{ point }}
+{% endfor %}
+
+**风险点**
+{% for risk in advice.risks %}
+- {{ risk }}
+{% endfor %}
+{% endfor %}
+{% else %}
+暂未生成选题建议；请检查 profile 或先运行 cluster。
+{% endif %}
+
+## 4. 明日采集建议
+
+- 保持当前赛道关键词，同时新增 1-2 个更窄的痛点词，例如「冷启动」「止损」「真实成本」。
+- 优先观察评论区追问，而不是只看标题热度。
+- 对高强度缺口做连续 3 天追踪，确认它是结构性需求而不是偶发情绪。
